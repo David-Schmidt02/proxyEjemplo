@@ -16,12 +16,12 @@ import org.springframework.http.HttpStatus;
 @RestController
 public class HechoController {
     private static final List<Hecho> HECHOS = List.of(
-            new Hecho("Evento Importante", "evento", new Categoria("General"), null, LocalDate.of(2024, 6, 1), null, null),
-            new Hecho("Incidente Menor", "incidente", new Categoria("General"), null, LocalDate.of(2024, 5, 20), null, null),
-            new Hecho("Evento Importante", "evento", new Categoria("General"), null, LocalDate.of(2024, 6, 2), null, null),
-            new Hecho("Incidente Mayor", "incidente", new Categoria("General"), null, LocalDate.of(2024, 5, 21), null, null),
-            new Hecho("Curiosidad", "curiosidad", new Categoria("General"), null, LocalDate.of(2024, 4, 15), null, null),
-            new Hecho("Evento Importante", "evento", new Categoria("General"), null, LocalDate.of(2024, 6, 3), null, null)
+            new Hecho("SOY INSTANCIA 8082 Evento Importante", "evento", new Categoria("General"), null, LocalDate.of(2024, 6, 1), null, null),
+            new Hecho("SOY INSTANCIA 8082 Incidente Menor", "incidente", new Categoria("General"), null, LocalDate.of(2024, 5, 20), null, null),
+            new Hecho("SOY INSTANCIA 8082 Evento Importante", "evento", new Categoria("General"), null, LocalDate.of(2024, 6, 2), null, null),
+            new Hecho("SOY INSTANCIA 8082 Incidente Mayor", "incidente", new Categoria("General"), null, LocalDate.of(2024, 5, 21), null, null),
+            new Hecho("SOY INSTANCIA 8082 Curiosidad", "curiosidad", new Categoria("General"), null, LocalDate.of(2024, 4, 15), null, null),
+            new Hecho("SOY INSTANCIA 8082 Evento Importante", "evento", new Categoria("General"), null, LocalDate.of(2024, 6, 3), null, null)
     );
 
     private static final Coleccion COLECCION_A = new Coleccion(
