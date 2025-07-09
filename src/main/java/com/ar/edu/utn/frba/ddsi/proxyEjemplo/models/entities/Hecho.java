@@ -1,33 +1,57 @@
 package com.ar.edu.utn.frba.ddsi.proxyEjemplo.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
+@Setter
 
-public class Hecho {
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "tipo"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = HechoTextual.class, name = "textual"),
+        @JsonSubTypes.Type(value = HechoMultimedia.class, name = "multimedia")
+})
 
-    private final UUID id;
+public abstract class Hecho {
+    private UUID id;
     private String titulo;
     private String descripcion;
     private Categoria categoria;
     private Ubicacion ubicacion;
-    private LocalDate fechaAcontecimiento;
-    private LocalDateTime fechaImportacion;
-    private Origen_Fuente origenFuente;
+    private LocalDateTime fechaAcontecimiento;
+    private LocalDateTime fechaCarga;
+    private Origen_Fuente origen;
+    private List<Etiqueta> etiquetas;
+    private Contribuyente contribuyente;
 
-    public Hecho(String titulo, String descripcion, Categoria categoria, Ubicacion ubicacion, LocalDate fechaAcontecimiento, LocalDateTime fechaImportacion, Origen_Fuente origenFuente) {
+    public Hecho(String titulo, String descripcion, Categoria categoria, Ubicacion ubicacion,
+                 LocalDateTime fechaAcontecimiento, List<Etiqueta> etiquetas, Contribuyente contribuyente) {
         this.id = UUID.randomUUID();
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.categoria = categoria;
         this.ubicacion = ubicacion;
         this.fechaAcontecimiento = fechaAcontecimiento;
-        this.fechaImportacion = fechaImportacion;
-        this.origenFuente = origenFuente;
+        this.fechaCarga = LocalDateTime.now();
+        this.origen = Origen_Fuente.INTERMEDIARIA;
+        this.etiquetas = etiquetas;
+        this.contribuyente = contribuyente;
     }
 
+    public boolean esEditable() {
+        //return !this.esAnonimo && (ChronoUnit.DAYS.between(this.fechaCarga, LocalDateTime.now()) < 7 );
+        return ChronoUnit.DAYS.between(this.fechaCarga, LocalDateTime.now()) < 7;
+    }
 }
